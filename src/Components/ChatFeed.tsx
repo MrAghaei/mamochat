@@ -1,5 +1,6 @@
 import MyMessage from "./MyMessage.tsx";
 import TheirMessage from "./TheirMessage.tsx";
+import MessageForm from "./MessageForm.tsx";
 
 const ChatFeed = (props) => {
     const {chats, activeChat, username, messages} = props
@@ -28,10 +29,22 @@ const ChatFeed = (props) => {
         })
     }
 
-    console.log(props);
+    renderMessages()
+
+    if(!chat) return "Loading..."
     return (
-        <div>
-            ChatFeed
+        <div className='chat-feed'>
+            <div className='chat-title-container'>
+                <div className='chat-title'>{chat.title}</div>
+                <div className='chat-subtitle'>
+                    {chat.people.map((person) => ` ${person.person.username}`)}
+                </div>
+            </div>
+            {renderMessages()}
+            <div style={{height: '100px'}}/>
+            <div className='message-form-container'>
+                <MessageForm {...props}  chatId={activeChat}/>
+            </div>
         </div>
     )
 }
